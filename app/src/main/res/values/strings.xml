@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Cloud Data App</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="_14999_0">14999.0</string>
+    <string name="products">Products</string>
+    <string name="add_product">Add Product</string>
+</resources>
