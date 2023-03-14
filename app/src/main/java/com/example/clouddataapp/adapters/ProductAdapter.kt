@@ -21,7 +21,6 @@ class ProductAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) {
             binding.product = product
-            Log.d("Error",product.toString())
             binding.executePendingBindings()
         }
     }
@@ -44,10 +43,12 @@ class ProductAdapter(
 
 class ProductDiffUtil : DiffUtil.ItemCallback<Product>() {
     override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
+        Log.d("Data", "$oldItem $newItem")
         return oldItem == newItem
     }
 
     override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
+        Log.d("Data", "$oldItem.name $newItem.name")
         return oldItem.name == newItem.name
     }
 }

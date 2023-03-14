@@ -21,6 +21,7 @@ class HomeViewModel : ViewModel() {
         loadProducts(db)
     }
 
+
     private fun loadProducts(db: FirebaseFirestore) {
         db.collection(COLL_PRODUCTS).get().addOnFailureListener {
             Log.e("HomeViewModel", "Error fetching products ${it.message}")

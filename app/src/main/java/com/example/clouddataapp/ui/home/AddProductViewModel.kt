@@ -8,8 +8,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class AddProductViewModel : ViewModel() {
 
-    private val _isLoding = MutableLiveData(false)
-    val isLoading: MutableLiveData<Boolean> = _isLoding
+    private val _isLoading = MutableLiveData(false)
+    val isLoading: MutableLiveData<Boolean> = _isLoading
 
     private val _isSaved = MutableLiveData(false)
     val isSaved: MutableLiveData<Boolean> = _isSaved
@@ -22,21 +22,21 @@ class AddProductViewModel : ViewModel() {
         category: String,
         imgsrc: String
     ) {
-        _isLoding.value = true
+        _isLoading.value = true
 
         if (!validateProduct(name, brand, category, price, imgsrc)) {
-            _isLoding.value = false
+            _isLoading.value = false
             _isSaved.value = false
         } else {
             val product = Product(name, brand, category, imgsrc, price.toDouble())
             db.collection(COLL_PRODUCTS).add(product).addOnSuccessListener {
-                _isLoding.value = false
+                _isLoading.value = false
                 _isSaved.value = false
             }.addOnFailureListener {
-                _isLoding.value = false
+                _isLoading.value = false
                 _isSaved.value = false
             }.addOnCanceledListener {
-                _isLoding.value = false
+                _isLoading.value = false
                 _isSaved.value = false
             }
         }

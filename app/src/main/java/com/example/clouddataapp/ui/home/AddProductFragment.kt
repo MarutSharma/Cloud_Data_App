@@ -14,12 +14,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class AddProductFragment:BottomSheetDialogFragment() {
+class AddProductFragment : BottomSheetDialogFragment() {
 
-    private var _binding:FragmentAddProductBinding? = null
+    private var _binding: FragmentAddProductBinding? = null
     private val binding get() = _binding!!
-    private lateinit var db :FirebaseFirestore
-    private val viewModel:AddProductViewModel by viewModels()
+    private lateinit var db: FirebaseFirestore
+    private val viewModel: AddProductViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +31,8 @@ class AddProductFragment:BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding=DataBindingUtil.inflate(inflater, R.layout.fragment_add_product,container,false)
+        _binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_add_product, container, false)
         return binding.root
     }
 
@@ -39,11 +40,11 @@ class AddProductFragment:BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
 
-        viewModel.isSaved.observe(viewLifecycleOwner){ state ->
-            if (state){
+        viewModel.isSaved.observe(viewLifecycleOwner) { state ->
+            if (state) {
                 findNavController().navigateUp()
-            } else{
-                binding.containerBox.isEnabled= true
+            } else {
+                binding.containerBox.isEnabled = true
                 binding.fabSave.text = "Save"
             }
         }
@@ -57,7 +58,7 @@ class AddProductFragment:BottomSheetDialogFragment() {
                 val category = editPrdCategory.text.toString().trim()
                 val imgsrc = editPrdUrl.text.toString().trim()
                 fabSave.text = "Saving..."
-                viewModel.saveProduct(db,name,price,brand,category,imgsrc)
+                viewModel.saveProduct(db, name, price, brand, category, imgsrc)
             }
         }
     }

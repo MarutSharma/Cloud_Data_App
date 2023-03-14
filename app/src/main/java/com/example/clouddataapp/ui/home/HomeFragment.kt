@@ -5,10 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.clouddataapp.R
 import com.example.clouddataapp.adapters.ProductAdapter
 import com.example.clouddataapp.databinding.FragmentHomeBinding
@@ -21,7 +23,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var db: FirebaseFirestore
-    private val viewModel:HomeViewModel by activityViewModels()
+    private val viewModel: HomeViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +36,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        val root:View = binding.root
+        val root: View = binding.root
         return binding.root
     }
 
@@ -44,14 +46,15 @@ class HomeFragment : Fragment() {
         viewModel.getProducts(db)
         viewModel.products.observe(viewLifecycleOwner) { products ->
             if (products.isNotEmpty()) {
-                binding.productRecyclerView.adapter = ProductAdapter(requireActivity()) {
+                val adapter = ProductAdapter(requireActivity()) {
                     viewModel.setProduct(it)
                     findNavController().navigate(R.id.action_navigation_home_to_viewProductFragment)
                 }
-                Log.d("Error",products.toString())
-                (binding.productRecyclerView.adapter as ProductAdapter).submitList(products)
+                binding.productRecyclerView.adapter = adapter
+                adapter.submitList(products)
             } else {
                 binding.productRecyclerView.visibility = View.GONE
+                Toast.makeText(requireContext(), "this is an error",Toast.LENGTH_LONG).show()
             }
             if (binding.swipeRefreshLayout.isRefreshing) {
                 binding.swipeRefreshLayout.isRefreshing = false
@@ -68,6 +71,7 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
     companion object {
         const val COLL_PRODUCTS = "Products"
     }
