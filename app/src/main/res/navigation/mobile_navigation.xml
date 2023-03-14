@@ -40,5 +40,17 @@
         <action
             android:id="@+id/action_viewProductFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_viewProductFragment_to_editProductFragment"
+            app:destination="@id/editProductFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/editProductFragment"
+        android:name="com.example.clouddataapp.ui.home.EditProductFragment"
+        android:label="EditProductFragment"
+        tools:layout="@layout/fragment_edit_product">
+        <action
+            android:id="@+id/action_editProductFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </dialog>
 </navigation>
